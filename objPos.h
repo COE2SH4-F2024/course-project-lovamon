@@ -25,6 +25,8 @@ class objPos
 
         objPos getObjPos() const;
         char getSymbol() const;
+        int getX(); // obtaainiing the row number (x-value)
+        int getY(); // obtaining the coloum number (y-value)
         char getSymbolIfPosEqual(const objPos* refPos) const;
         
         bool isPosEqual(const objPos* refPos) const;
