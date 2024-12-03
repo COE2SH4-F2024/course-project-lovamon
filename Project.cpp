@@ -42,9 +42,9 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    game = new GameMechs(30,15);
+    game = new GameMechs(30, 15);
     myPlayer = new Player(game);
-    // game->generateFood(myPlayer->getPlayerPos());
+    game->generateFood(myPlayer->getPlayerPos()->getHeadElement());
 
 }
 
@@ -70,7 +70,7 @@ void DrawScreen(void)
         for (j = 0; j < game->getBoardSizeX(); j++) {
             if (i == game->getFoodPos().pos->y && j == game->getFoodPos().pos->x)
             {
-                MacUILib_printf("%c", game->getFoodPos().symbol);
+                MacUILib_printf("%c", game->getFoodPos().getSymbol());
             }
             else if (i == 0 || i == game->getBoardSizeY() - 1 || j == 0 || j == game->getBoardSizeX() - 1) 
             {
@@ -84,7 +84,7 @@ void DrawScreen(void)
                 for(int k = 0; k<myPlayer->getPlayerPos()->getSize(); k++){
                     valid = false;
                     if (i == myPlayer->getPlayerPos()->getElement(k).getObjPos().pos->y && j == myPlayer->getPlayerPos()->getElement(k).getObjPos().pos->x) {
-                        MacUILib_printf("%c", myPlayer->getPlayerPos()->getElement(k).symbol);
+                        MacUILib_printf("%c", myPlayer->getPlayerPos()->getElement(k).getSymbol());
                         valid = true;
                         break;
                     } 
