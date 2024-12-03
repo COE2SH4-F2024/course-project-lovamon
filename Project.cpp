@@ -92,5 +92,15 @@ void CleanUp(void)
 {
     MacUILib_clearScreen();    
 
+    if(game->getLoseFlagStatus()){
+        MacUILib_printf(" You Lost The Game.\n");
+    } 
+    if (game->getExitFlagStatus()) {
+        MacUILib_printf(" You Exitted the Game. \n");
+    }
+
     MacUILib_uninit();
+
+    delete myPlayer;
+    delete game;
 }

@@ -3,8 +3,10 @@
 
 GameMechs::GameMechs()
 {
-    boardSizeX = 30;
-    boardSizeY = 15;
+    input = '\0'; // Null initially
+    boardSizeX = 30; // default size
+    boardSizeY = 15; // default size
+    score = 0;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)

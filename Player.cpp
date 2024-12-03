@@ -59,6 +59,7 @@ void Player::updatePlayerDir()
     
     case ' ':
         mainGameMechsRef->setExitTrue();
+        mainGameMechsRef->setLoseFlag();
         break;
 
     case STOP:
