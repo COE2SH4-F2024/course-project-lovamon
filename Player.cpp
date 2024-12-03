@@ -9,14 +9,6 @@ Player::Player(GameMechs* thisGMRef)
 
     objPos head = objPos(mainGameMechsRef->getBoardSizeX()/2 -2, mainGameMechsRef->getBoardSizeY()/2, '*');
     playerPosList->insertHead(head);
-    head = objPos(mainGameMechsRef->getBoardSizeX()/2 - 1, mainGameMechsRef->getBoardSizeY()/2, '*');
-    playerPosList->insertTail(head);
-    head = objPos(mainGameMechsRef->getBoardSizeX()/2 , mainGameMechsRef->getBoardSizeY()/2, '*');
-    playerPosList->insertTail(head);
-    head = objPos(mainGameMechsRef->getBoardSizeX()/2 + 1, mainGameMechsRef->getBoardSizeY()/2, '*');
-    playerPosList->insertTail(head);
-    head = objPos(mainGameMechsRef->getBoardSizeX()/2 + 2, mainGameMechsRef->getBoardSizeY()/2, '*');
-    playerPosList->insertTail(head);
 
     // more actions to be included
 }
@@ -132,10 +124,17 @@ void Player::movePlayer()
         break;
     }
 
-    objPos head = objPos(currentX, currentY, '*');
-    playerPosList->insertHead(head);
-    playerPosList->removeTail();
-    // playerPos.setObjPos(currentX, currentY, '*');
+    if(currentX == mainGameMechsRef->getFoodPos().pos->x && currentY == mainGameMechsRef->getFoodPos().pos->y) {
+        objPos head = objPos(currentX, currentY, '*');
+        playerPosList->insertHead(head);
+        mainGameMechsRef->generateFood(playerPosList);
+        mainGameMechsRef->incrementScore();
+    } else {
+        objPos head = objPos(currentX, currentY, '*');
+        playerPosList->insertHead(head);
+        playerPosList->removeTail();
+    }
+    
 }
 
 // More methods to be added

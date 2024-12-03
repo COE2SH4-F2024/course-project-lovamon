@@ -44,7 +44,7 @@ void Initialize(void)
 
     game = new GameMechs(30, 15);
     myPlayer = new Player(game);
-    game->generateFood(myPlayer->getPlayerPos()->getHeadElement());
+    game->generateFood(myPlayer->getPlayerPos());
 
 }
 
@@ -97,6 +97,7 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");  // Move to the next row
     } 
+    MacUILib_printf("Your Score is %d", myPlayer->getPlayerPos()->getSize()-1);
 }
 
 void LoopDelay(void)
