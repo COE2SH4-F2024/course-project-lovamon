@@ -33,6 +33,7 @@ class GameMechs
         void setLoseFlag();
 
         char getInput() const;
+        void getAsynchronousInput();
         void setInput(char this_input);
         void clearInput();
 
