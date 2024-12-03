@@ -97,7 +97,7 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");  // Move to the next row
     } 
-    MacUILib_printf("Your Score is %d", myPlayer->getPlayerPos()->getSize()-1);
+    MacUILib_printf("Your Score is %d\n", myPlayer->getPlayerPos()->getSize()-1);
 }
 
 void LoopDelay(void)
