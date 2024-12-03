@@ -44,7 +44,8 @@ void Initialize(void)
 
     game = new GameMechs(30,15);
     myPlayer = new Player(game);
-    game->generateFood(myPlayer->getPlayerPos());
+    // game->generateFood(myPlayer->getPlayerPos());
+
 }
 
 void GetInput(void)
@@ -67,10 +68,7 @@ void DrawScreen(void)
     int j;
     for (i = 0; i < game->getBoardSizeY(); i++) {
         for (j = 0; j < game->getBoardSizeX(); j++) {
-            if (i == myPlayer->getPlayerPos().getObjPos().pos->y && j == myPlayer->getPlayerPos().getObjPos().pos->x) {
-                MacUILib_printf("%c", myPlayer->getPlayerPos().symbol);
-            } 
-            else if (i == game->getFoodPos().pos->y && j == game->getFoodPos().pos->x)
+            if (i == game->getFoodPos().pos->y && j == game->getFoodPos().pos->x)
             {
                 MacUILib_printf("%c", game->getFoodPos().symbol);
             }
@@ -82,7 +80,19 @@ void DrawScreen(void)
             else 
             {
                 // Print empty space inside the game board
-                MacUILib_printf(" ");
+                bool valid;
+                for(int k = 0; k<myPlayer->getPlayerPos()->getSize(); k++){
+                    valid = false;
+                    if (i == myPlayer->getPlayerPos()->getElement(k).getObjPos().pos->y && j == myPlayer->getPlayerPos()->getElement(k).getObjPos().pos->x) {
+                        MacUILib_printf("%c", myPlayer->getPlayerPos()->getElement(k).symbol);
+                        valid = true;
+                        break;
+                    } 
+                }
+
+                if(!valid){
+                    MacUILib_printf(" ");
+                }
             }
         }
         MacUILib_printf("\n");  // Move to the next row

@@ -5,8 +5,18 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+    playerPosList = new objPosArrayList();
 
-    playerPos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '*');
+    objPos head = objPos(mainGameMechsRef->getBoardSizeX()/2 -2, mainGameMechsRef->getBoardSizeY()/2, '*');
+    playerPosList->insertHead(head);
+    head = objPos(mainGameMechsRef->getBoardSizeX()/2 - 1, mainGameMechsRef->getBoardSizeY()/2, '*');
+    playerPosList->insertTail(head);
+    head = objPos(mainGameMechsRef->getBoardSizeX()/2 , mainGameMechsRef->getBoardSizeY()/2, '*');
+    playerPosList->insertTail(head);
+    head = objPos(mainGameMechsRef->getBoardSizeX()/2 + 1, mainGameMechsRef->getBoardSizeY()/2, '*');
+    playerPosList->insertTail(head);
+    head = objPos(mainGameMechsRef->getBoardSizeX()/2 + 2, mainGameMechsRef->getBoardSizeY()/2, '*');
+    playerPosList->insertTail(head);
 
     // more actions to be included
 }
@@ -17,10 +27,10 @@ Player::~Player()
     // delete any heap members here
 }
 
-objPos Player::getPlayerPos() const
+objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
-    return playerPos;
+    return playerPosList;
 }
 
 void Player::updatePlayerDir()
@@ -58,9 +68,9 @@ void Player::updatePlayerDir()
         break;
     
     // Testing random food gen on the fly
-    case 'f':
-        mainGameMechsRef->generateFood(playerPos);
-        break;
+    // case 'f':
+    //     mainGameMechsRef->generateFood(playerPos);
+    //     break;
     
     case ' ':
         mainGameMechsRef->setExitTrue();
@@ -79,8 +89,8 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
-    int currentX = playerPos.pos->x;
-    int currentY = playerPos.pos->y;
+    int currentX = playerPosList->getHeadElement().pos->x;
+    int currentY = playerPosList->getHeadElement().pos->y;
     int boardY = mainGameMechsRef->getBoardSizeY();
     int boardX = mainGameMechsRef->getBoardSizeX();
     
@@ -122,7 +132,10 @@ void Player::movePlayer()
         break;
     }
 
-    playerPos.setObjPos(currentX, currentY, '*');
+    objPos head = objPos(currentX, currentY, '*');
+    playerPosList->insertHead(head);
+    playerPosList->removeTail();
+    // playerPos.setObjPos(currentX, currentY, '*');
 }
 
 // More methods to be added
