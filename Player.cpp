@@ -57,6 +57,11 @@ void Player::updatePlayerDir()
         }
         break;
     
+    // Testing random food gen on the fly
+    case 'f':
+        mainGameMechsRef->generateFood(playerPos);
+        break;
+    
     case ' ':
         mainGameMechsRef->setExitTrue();
         mainGameMechsRef->setLoseFlag();

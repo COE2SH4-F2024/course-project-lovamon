@@ -44,8 +44,7 @@ void Initialize(void)
 
     game = new GameMechs(30,15);
     myPlayer = new Player(game);
-
-    exitFlag = false;
+    game->generateFood(myPlayer->getPlayerPos());
 }
 
 void GetInput(void)
@@ -57,6 +56,7 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    game->clearInput(); 
 }
 
 void DrawScreen(void)
@@ -69,11 +69,18 @@ void DrawScreen(void)
         for (j = 0; j < game->getBoardSizeX(); j++) {
             if (i == myPlayer->getPlayerPos().getObjPos().pos->y && j == myPlayer->getPlayerPos().getObjPos().pos->x) {
                 MacUILib_printf("%c", myPlayer->getPlayerPos().symbol);
+            } 
+            else if (i == game->getFoodPos().pos->y && j == game->getFoodPos().pos->x)
+            {
+                MacUILib_printf("%c", game->getFoodPos().symbol);
             }
-            else if (i == 0 || i == game->getBoardSizeY() - 1 || j == 0 || j == game->getBoardSizeX() - 1) {
+            else if (i == 0 || i == game->getBoardSizeY() - 1 || j == 0 || j == game->getBoardSizeX() - 1) 
+            {
                 // Print borders represented by '#'
                 MacUILib_printf("#");
-            } else {
+            } 
+            else 
+            {
                 // Print empty space inside the game board
                 MacUILib_printf(" ");
             }

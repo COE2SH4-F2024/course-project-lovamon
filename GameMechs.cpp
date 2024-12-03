@@ -85,3 +85,23 @@ void GameMechs::clearInput()
 }
 
 // More methods should be added here
+void GameMechs::generateFood(objPos blockOff){
+    int randomX;
+    int randomY;
+    bool foodSpawned = false;
+    srand(time(0));
+
+    while (!foodSpawned){
+        randomX = (rand() % (boardSizeX-2)) + 1;
+        randomY = (rand() % (boardSizeY-2)) + 1;
+
+        if(randomX != blockOff.pos->x && randomY != blockOff.pos->y){
+            food.setObjPos(randomX, randomY, 'F');
+            foodSpawned = true;
+        }
+    }
+}
+
+objPos GameMechs::getFoodPos() const{
+    return food;
+}
