@@ -124,16 +124,30 @@ void Player::movePlayer()
         break;
     }
 
-    if(currentX == mainGameMechsRef->getFoodPos().pos->x && currentY == mainGameMechsRef->getFoodPos().pos->y) {
-        objPos head = objPos(currentX, currentY, '*');
-        playerPosList->insertHead(head);
-        mainGameMechsRef->generateFood(playerPosList);
-        mainGameMechsRef->incrementScore();
-    } else {
-        objPos head = objPos(currentX, currentY, '*');
-        playerPosList->insertHead(head);
-        playerPosList->removeTail();
+
+    bool collided = false;
+
+    for (int i=1; i<playerPosList->getSize(); i++){
+        if(currentX == playerPosList->getElement(i).pos->x && currentY == playerPosList->getElement(i).pos->y){
+            collided = true;
+            mainGameMechsRef->setExitTrue();
+            break;
+        }
     }
+
+    if (collided == false) {
+        if(currentX == mainGameMechsRef->getFoodPos().pos->x && currentY == mainGameMechsRef->getFoodPos().pos->y) {
+            objPos head = objPos(currentX, currentY, '*');
+            playerPosList->insertHead(head);
+            mainGameMechsRef->generateFood(playerPosList);
+            mainGameMechsRef->incrementScore();
+        } else {
+            objPos head = objPos(currentX, currentY, '*');
+            playerPosList->insertHead(head);
+            playerPosList->removeTail();
+        }
+    }
+    
     
 }
 
